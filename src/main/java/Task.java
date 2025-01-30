@@ -19,7 +19,10 @@ public class Task {
         isDone = true;
     }
 
-    public void setUndone() {
-        isDone = false;
+    public void setUndone() { isDone = false; }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
     }
 }
