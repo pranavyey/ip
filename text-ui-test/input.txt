@@ -7,5 +7,6 @@ mark 2
 list
 delete 1
 event convention /from Monday /to Friday
+deadline tP /by Friday
 list
 bye

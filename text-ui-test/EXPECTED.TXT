@@ -22,3 +22,19 @@ Nice! I've marked this task as done:
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][X] project (by: Monday)
+Task deleted!
+Now you have 3 tasks in the list.
+ ____________________________
+Got it. I've added this task:
+[E][ ] convention (from: Monday to: Friday)
+Now you have 2 tasks in the list.
+ ____________________________
+Got it. I've added this task:
+[D][ ] tP (by: Friday)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[D][X] project (by: Monday)
+2.[E][ ] convention (from: Monday to: Friday)
+3.[D][ ] tP (by: Friday)
+Bye. Hope to see you again soon!
+ ____________________________
