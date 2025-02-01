@@ -59,7 +59,7 @@ public class yeyAI {
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
                         throw new YeyException("Description of a event cannot be empty. Try again with a description");
                     }
-                    Task t = new Deadline(parts[1]);
+                    Task t = new Event(parts[1]);
                     tasks.add(t);
                     System.out.println(line + "Got it. I've added this task:");
                     System.out.println(t);
@@ -75,6 +75,8 @@ public class yeyAI {
                         throw new YeyException("Task to be deleted must exist within list");
                     }
                     tasks.remove(Integer.parseInt(parts[1]) - 1);
+                    System.out.println("Task deleted!");
+                    System.out.printf("Now you have %d tasks in the list.\n", index);
                     index--;
                     input = scanner.nextLine();
                 } else {

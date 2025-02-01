@@ -5,4 +5,7 @@ mark 1
 unmark 1
 mark 2
 list
+delete 1
+event convention /from Monday /to Friday
+list
 bye
