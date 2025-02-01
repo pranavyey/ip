@@ -57,7 +57,7 @@ public class yeyAI {
                 } else if (input.startsWith("event")) {
                     String[] parts = input.split(" ", 2);
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                        throw new YeyException("Description of a deadline cannot be empty. Try again with a description");
+                        throw new YeyException("Description of a event cannot be empty. Try again with a description");
                     }
                     Task t = new Deadline(parts[1]);
                     tasks[index - 1] = t;
