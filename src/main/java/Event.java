@@ -13,6 +13,6 @@ public class Event extends Task{
     }
 
     public String toCommand() {
-        return String.format("event %s /from %s /to %s", getDescription(), this.start, this.end);
+        return String.format("event %s /from %s /to %s/%b", getDescription(), this.start, this.end, isDone);
     }
 }

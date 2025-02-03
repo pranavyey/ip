@@ -11,6 +11,6 @@ public class Deadline extends Task{
     }
 
     public String toCommand() {
-        return String.format("deadline %s /by %s", getDescription(), deadline);
+        return String.format("deadline %s /by %s/%b", getDescription(), deadline, isDone);
     }
 }

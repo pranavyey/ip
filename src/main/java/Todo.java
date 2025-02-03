@@ -9,6 +9,6 @@ public class Todo extends Task{
     }
 
     public String toCommand() {
-        return String.format("todo %s", getDescription());
+        return String.format("todo %s/%b", getDescription(), isDone);
     }
 }

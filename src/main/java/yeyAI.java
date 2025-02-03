@@ -15,11 +15,38 @@ public class yeyAI {
                 List<String> lines = Files.readAllLines(path);
                 for (String taskLine : lines){
                     if (taskLine.startsWith("todo")) {
-                        tasks.add(new Todo(taskLine.split("todo ")[1]));
+                        if (taskLine.endsWith("/true")) {
+                            String taskDescription = ((taskLine.split("todo")[1]).split("/true")[0]);
+                            Task t = new Todo(taskDescription);
+                            t.setDone();
+                            tasks.add(t);
+                        } else if (taskLine.endsWith("/false")) {
+                            String taskDescription = ((taskLine.split("todo")[1]).split("/false")[0]);
+                            Task t = new Todo(taskDescription);
+                            tasks.add(t);
+                        }
                     } else if (taskLine.startsWith("deadline")) {
-                        tasks.add(new Deadline(taskLine.split("deadline ")[1]));
+                        if (taskLine.endsWith("/true")) {
+                            String taskDescription = ((taskLine.split("todo")[1]).split("/true")[0]);
+                            Task t = new Deadline(taskDescription);
+                            t.setDone();
+                            tasks.add(t);
+                        } else if (taskLine.endsWith("/false")) {
+                            String taskDescription = ((taskLine.split("todo")[1]).split("/false")[0]);
+                            Task t = new Deadline(taskDescription);
+                            tasks.add(t);
+                        }
                     } else if (taskLine.startsWith("event")) {
-                        tasks.add(new Event(taskLine.split("event ")[1]));
+                        if (taskLine.endsWith("/true")) {
+                            String taskDescription = ((taskLine.split("todo")[1]).split("/true")[0]);
+                            Task t = new Event(taskDescription);
+                            t.setDone();
+                            tasks.add(t);
+                        } else if (taskLine.endsWith("/false")) {
+                            String taskDescription = ((taskLine.split("todo")[1]).split("/false")[0]);
+                            Task t = new Event(taskDescription);
+                            tasks.add(t);
+                        }
                     }
                 }
             } catch (IOException e) {
