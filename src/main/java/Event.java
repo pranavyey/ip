@@ -12,4 +12,7 @@ public class Event extends Task{
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
     }
 
+    public String toCommand() {
+        return String.format("event %s /from %s /to %s", getDescription(), this.start, this.end);
+    }
 }

@@ -9,4 +9,8 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), deadline);
     }
+
+    public String toCommand() {
+        return String.format("deadline %s /by %s", getDescription(), deadline);
+    }
 }
