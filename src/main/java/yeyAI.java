@@ -27,23 +27,23 @@ public class yeyAI {
                         }
                     } else if (taskLine.startsWith("deadline")) {
                         if (taskLine.endsWith("/true")) {
-                            String taskDescription = ((taskLine.split("todo")[1]).split("/true")[0]);
+                            String taskDescription = ((taskLine.split("deadline")[1]).split("/true")[0]);
                             Task t = new Deadline(taskDescription);
                             t.setDone();
                             tasks.add(t);
                         } else if (taskLine.endsWith("/false")) {
-                            String taskDescription = ((taskLine.split("todo")[1]).split("/false")[0]);
+                            String taskDescription = ((taskLine.split("deadline")[1]).split("/false")[0]);
                             Task t = new Deadline(taskDescription);
                             tasks.add(t);
                         }
                     } else if (taskLine.startsWith("event")) {
                         if (taskLine.endsWith("/true")) {
-                            String taskDescription = ((taskLine.split("todo")[1]).split("/true")[0]);
+                            String taskDescription = ((taskLine.split("event")[1]).split("/true")[0]);
                             Task t = new Event(taskDescription);
                             t.setDone();
                             tasks.add(t);
                         } else if (taskLine.endsWith("/false")) {
-                            String taskDescription = ((taskLine.split("todo")[1]).split("/false")[0]);
+                            String taskDescription = ((taskLine.split("event")[1]).split("/false")[0]);
                             Task t = new Event(taskDescription);
                             tasks.add(t);
                         }
