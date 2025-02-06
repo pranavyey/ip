@@ -59,8 +59,9 @@ public class yeyAI {
 
 
         System.out.println(line + "Hello! I'm yeyAI\n" + "What can I do for you?\n" + line);
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
+        String input = "";
+        while (true) {
+            input = scanner.nextLine();
             try {
                 if (input.equals("list")) { //list branch
                     if (tasks.isEmpty()) {
@@ -72,19 +73,16 @@ public class yeyAI {
                             System.out.printf("%d.%s\n", displayIndex, tasks.get(i).toString());
                         }
                     }
-                    input = scanner.nextLine();
                 } else if (input.startsWith("mark")) { //mark branch
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     tasks.get(taskIndex).setDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks.get(taskIndex).toString());
-                    input = scanner.nextLine();
                 } else if (input.startsWith("unmark")) { //unmark branch
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     tasks.get(taskIndex).setUndone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(tasks.get(taskIndex).toString());
-                    input = scanner.nextLine();
                 } else if (input.startsWith("todo")) { //new to-do task branch
                     String[] parts = input.split(" ", 2);
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -95,7 +93,6 @@ public class yeyAI {
                     System.out.println(line + "Got it. I've added this task:");
                     System.out.println(t);
                     System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                    input = scanner.nextLine();
                 } else if (input.startsWith("deadline")) {
                     String[] parts = input.split(" ", 2);
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -106,7 +103,6 @@ public class yeyAI {
                     System.out.println(line + "Got it. I've added this task:");
                     System.out.println(t);
                     System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                    input = scanner.nextLine();
                 } else if (input.startsWith("event")) {
                     String[] parts = input.split(" ", 2);
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -117,7 +113,6 @@ public class yeyAI {
                     System.out.println(line + "Got it. I've added this task:");
                     System.out.println(t);
                     System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                    input = scanner.nextLine();
                 } else if (input.startsWith("delete")) {
                     String[] parts = input.split(" ", 2);
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -129,25 +124,26 @@ public class yeyAI {
                     tasks.remove(Integer.parseInt(parts[1]) - 1);
                     System.out.println("Task deleted!");
                     System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                    input = scanner.nextLine();
+                } else if (input.startsWith("bye")) {
+                    scanner.close();
+                    List<String> saveTasks = new ArrayList<>();
+                    for (Task task : tasks) {
+                        saveTasks.add(task.toCommand());
+                    }
+                    try {
+                        Files.write(path, saveTasks, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                    } catch (IOException e) {
+                        System.out.println("Error writing file:" + e.getMessage());
+                    }
+                    System.out.println("Bye. Hope to see you again soon!\n" + line); // bye/exit branch
+                    break;
                 } else {
                     throw new YeyException("Sorry, I don't know what that means. Try again");
                 }
             } catch (YeyException e) {
                 System.out.println(e.getMessage());
-                input = scanner.nextLine();
             }
         }
-        scanner.close();
-        List<String> saveTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            saveTasks.add(task.toCommand());
-        }
-        try {
-            Files.write(path, saveTasks, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
-            System.out.println("Error writing file:" + e.getMessage());
-        }
-        System.out.println("Bye. Hope to see you again soon!\n" + line); // bye/exit branch
+
     }
 }
