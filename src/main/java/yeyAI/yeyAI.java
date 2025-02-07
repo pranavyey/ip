@@ -1,3 +1,5 @@
+package yeyAI;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -26,7 +28,7 @@ public class yeyAI {
 
         while (isRunning) {
             String input = scanner.nextLine();
-            isRunning = parser.execute(input); // Let Parser handle everything
+            isRunning = parser.execute(input); // Let yeyAI.Parser handle everything
         }
     }
 

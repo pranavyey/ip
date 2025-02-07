@@ -1,6 +1,8 @@
+package yeyAI;
+
 public class Ui {
     public void showWelcomeMessage() {
-        System.out.println("Hello! I'm yeyAI\nWhat can I do for you?");
+        System.out.println("Hello! I'm yeyAI.yeyAI\nWhat can I do for you?");
     }
 
     public void showExitMessage() {

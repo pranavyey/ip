@@ -1,5 +1,5 @@
  ____________________________
-Hello! I'm yeyAI
+Hello! I'm yeyAI.yeyAI
 What can I do for you?
  ____________________________
 
@@ -22,7 +22,7 @@ Nice! I've marked this task as done:
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][X] project (by: Monday)
-Task deleted!
+yeyAI.Task deleted!
 Now you have 3 tasks in the list.
  ____________________________
 Got it. I've added this task:

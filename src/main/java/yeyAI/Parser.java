@@ -1,3 +1,5 @@
+package yeyAI;
+
 public class Parser {
     private TaskList tasks;
     private Ui ui;
@@ -60,7 +62,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             ui.showError("Invalid task number format.");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Task index out of range.");
+            ui.showError("yeyAI.Task index out of range.");
         } catch (YeyException e) {
             ui.showError(e.getMessage());
         }
