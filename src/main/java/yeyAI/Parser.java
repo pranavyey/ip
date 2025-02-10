@@ -1,16 +1,32 @@
 package yeyAI;
 
+/**
+ * Parses and executes user commands.
+ */
 public class Parser {
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructs a Parser with the required components.
+     *
+     * @param tasks The task list.
+     * @param ui The user interface.
+     * @param storage The storage handler.
+     */
     public Parser(TaskList tasks, Ui ui, Storage storage) {
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Executes a user command based on input.
+     *
+     * @param input The user command string.
+     * @return True to continue execution, false to exit.
+     */
     public boolean execute(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0];
@@ -62,7 +78,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             ui.showError("Invalid task number format.");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("yeyAI.Task index out of range.");
+            ui.showError("Task index out of range.");
         } catch (YeyException e) {
             ui.showError(e.getMessage());
         }

@@ -7,13 +7,27 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Handles loading and saving tasks from a file.
+ */
 public class Storage {
     private Path filePath;
 
+    /**
+     * Constructs a new Storage instance for the given file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = Path.of(filePath);
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If the file cannot be read.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         if (Files.exists(filePath)) {
@@ -29,6 +43,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasks(TaskList tasks) {
         List<String> lines = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {
