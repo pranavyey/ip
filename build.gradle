@@ -2,6 +2,12 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = "8.45"  // Ensure a recent version
+    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
 }
 
 repositories {

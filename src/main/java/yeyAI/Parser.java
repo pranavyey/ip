@@ -4,9 +4,9 @@ package yeyAI;
  * Parses and executes user commands.
  */
 public class Parser {
-    private TaskList tasks;
-    private Ui ui;
-    private Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
+    private final Storage storage;
 
     /**
      * Constructs a Parser with the required components.

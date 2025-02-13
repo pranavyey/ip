@@ -7,20 +7,19 @@ import java.util.Scanner;
  * The main entry point for the yeyAI application.
  * Initializes the necessary components and runs the task manager.
  */
-public class yeyAI {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
-    private Parser parser;
+public class YeyAI {
+    private final Ui ui;
+    private final Parser parser;
 
     /**
      * Constructs a new yeyAI instance with the given file path for storage.
      *
      * @param filePath The file path where tasks are stored.
      */
-    public yeyAI(String filePath) {
+    public YeyAI(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        Storage storage = new Storage(filePath);
+        TaskList tasks;
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
@@ -50,6 +49,6 @@ public class yeyAI {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new yeyAI(System.getProperty("user.dir") + "/tasks.txt").run();
+        new YeyAI(System.getProperty("user.dir") + "/tasks.txt").run();
     }
 }

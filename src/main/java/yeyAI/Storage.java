@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Handles loading and saving tasks from a file.
  */
 public class Storage {
-    private Path filePath;
+    private final Path filePath;
 
     /**
      * Constructs a new Storage instance for the given file path.

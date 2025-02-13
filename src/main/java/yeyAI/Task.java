@@ -5,7 +5,7 @@ package yeyAI;
  * This is an abstract class to be extended by specific task types (e.g., Todo, Deadline, Event).
  */
 public abstract class Task {
-    protected String description;
+    protected final String description;
     protected boolean isDone;
 
     /**
