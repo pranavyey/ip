@@ -67,6 +67,10 @@ public class Parser {
                     ui.showTaskDeleted(tasks.getTask(deleteIndex));
                     tasks.removeTask(deleteIndex);
                     break;
+                case "find":
+                    String query = arguments.trim();
+                    ui.showTaskList(tasks.findTasks(query));
+                    break;
                 case "bye":
                     ui.showExitMessage();
                     storage.saveTasks(tasks);
