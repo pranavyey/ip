@@ -70,6 +70,12 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Creates and returns a new TaskList of tasks that have matching decriptions with the query
+     *
+     * @param query Substring that has to match with the description of a task
+     * @return a TaskList of all matching Tasks
+     */
     public TaskList findTasks(String query) {
         TaskList result = new TaskList();
         for (Task task : tasks) {
