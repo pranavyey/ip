@@ -69,5 +69,15 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
+    public TaskList findTasks(String query) {
+        TaskList result = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(query)) {
+                result.addTask(task);
+            }
+        }
+        return result;
+    }
 }
 
