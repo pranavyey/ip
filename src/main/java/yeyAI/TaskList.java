@@ -91,6 +91,9 @@ public class TaskList {
     }
 
     public String listTasks() {
+        if (tasks.isEmpty()) {
+            return "There are no tasks in your list";
+        }
         StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         for (int i =0; i < tasks.size(); i++) {
             result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
