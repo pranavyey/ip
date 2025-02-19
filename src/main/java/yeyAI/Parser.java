@@ -40,6 +40,10 @@ public class Parser {
      * @return The response message.
      */
     public String processCommand(String input) {
+        assert tasks != null : "Tasks should not be null!";
+        assert ui != null : "UI should not be null!";
+        assert storage != null : "Storage should not be null!";
+
         String[] words = input.split(" ", 2);
         String commandWord = words[0];
         String arguments = words.length > 1 ? words[1] : "";

@@ -2,6 +2,7 @@ package yeyAI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a deadline task with a specific due date.
@@ -14,9 +15,19 @@ public class Deadline extends Task {
      *
      * @param description The task description containing "/by" followed by the due date.
      */
-    public Deadline(String description) {
+    public Deadline(String description) throws YeyException {
         super(description.split(" /by ")[0]);
-        this.deadline = LocalDate.parse(description.split(" /by ")[1]);
+
+        String[] parts = description.split(" /by ");
+        if (parts.length != 2) {
+            throw new YeyException("Invalid deadline format! Use: deadline DESCRIPTION /by YYYY-MM-DD");
+        }
+
+        try {
+            this.deadline = LocalDate.parse(parts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
+        }
     }
 
     /**

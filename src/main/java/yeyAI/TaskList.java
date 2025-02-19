@@ -39,6 +39,7 @@ public class TaskList {
      * @param index The index of the task to remove.
      */
     public void removeTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of bounds!";
         tasks.remove(index);
     }
 
@@ -49,6 +50,7 @@ public class TaskList {
      * @return The Task object at the given index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of bounds!";
         return tasks.get(index);
     }
 
@@ -58,6 +60,7 @@ public class TaskList {
      * @return The last Task object in the list.
      */
     public Task getLastTask() {
+        assert !tasks.isEmpty() : "Task list is empty, cannot get last task!";
         return tasks.get(tasks.size() - 1);
     }
 
