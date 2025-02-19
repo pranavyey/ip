@@ -1,7 +1,6 @@
 package yeyAI;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The main entry point for the yeyAI application.
@@ -30,17 +29,20 @@ public class YeyAI {
     }
 
     /**
-     * Runs the task manager, continuously reading user input and executing commands.
+     * Runs the task manager in CLI mode.
      */
     public void run() {
         ui.showWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
-        boolean isRunning = true;
+    }
 
-        while (isRunning) {
-            String input = scanner.nextLine();
-            isRunning = parser.execute(input); // Let Parser handle everything
-        }
+    /**
+     * Processes user input and returns the response string for the GUI.
+     *
+     * @param input User input command.
+     * @return Response message from yeyAI.
+     */
+    public String getResponse(String input) {
+        return parser.getResponse(input);
     }
 
     /**
@@ -51,4 +53,9 @@ public class YeyAI {
     public static void main(String[] args) {
         new YeyAI(System.getProperty("user.dir") + "/tasks.txt").run();
     }
+
+    public void saveTasks() {
+        parser.saveTasks();
+    }
 }
+

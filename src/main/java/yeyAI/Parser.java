@@ -22,12 +22,24 @@ public class Parser {
     }
 
     /**
-     * Executes a user command based on input.
+     * Executes a user command for the CLI.
      *
      * @param input The user command string.
      * @return True to continue execution, false to exit.
      */
     public boolean execute(String input) {
+        String response = processCommand(input);
+        ui.showMessage(response);
+        return !input.equalsIgnoreCase("bye");
+    }
+
+    /**
+     * Processes a user command and returns a response.
+     *
+     * @param input The user command string.
+     * @return The response message.
+     */
+    public String processCommand(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0];
         String arguments = words.length > 1 ? words[1] : "";
@@ -35,57 +47,61 @@ public class Parser {
         try {
             switch (commandWord) {
                 case "list":
-                    ui.showTaskList(tasks);
-                    break;
+                    return tasks.listTasks();
                 case "mark":
                     int markIndex = Integer.parseInt(arguments) - 1;
                     tasks.getTask(markIndex).setDone();
-                    ui.showMarkedTask(tasks.getTask(markIndex));
-                    break;
+                    return "Marked task as done:\n" + tasks.getTask(markIndex);
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(arguments) - 1;
                     tasks.getTask(unmarkIndex).setUndone();
-                    ui.showUnmarkedTask(tasks.getTask(unmarkIndex));
-                    break;
+                    return "Unmarked task:\n" + tasks.getTask(unmarkIndex);
                 case "todo":
                     if (arguments.isEmpty()) throw new YeyException("The description of a todo cannot be empty.");
                     tasks.addTask(new Todo(arguments));
-                    ui.showTaskAdded(tasks.getLastTask(), tasks.getSize());
-                    break;
+                    return "Added new task:\n" + tasks.getLastTask();
                 case "deadline":
                     if (arguments.isEmpty()) throw new YeyException("The description of a deadline cannot be empty.");
                     tasks.addTask(new Deadline(arguments));
-                    ui.showTaskAdded(tasks.getLastTask(), tasks.getSize());
-                    break;
+                    return "Added new deadline:\n" + tasks.getLastTask();
                 case "event":
                     if (arguments.isEmpty()) throw new YeyException("The description of an event cannot be empty.");
                     tasks.addTask(new Event(arguments));
-                    ui.showTaskAdded(tasks.getLastTask(), tasks.getSize());
-                    break;
+                    return "Added new event:\n" + tasks.getLastTask();
                 case "delete":
                     int deleteIndex = Integer.parseInt(arguments) - 1;
-                    ui.showTaskDeleted(tasks.getTask(deleteIndex));
+                    Task deletedTask = tasks.getTask(deleteIndex);
                     tasks.removeTask(deleteIndex);
-                    break;
+                    return "Deleted task:\n" + deletedTask;
                 case "find":
                     String query = arguments.trim();
-                    ui.showTaskList(tasks.findTasks(query));
-                    break;
+                    return tasks.findTasksString(query);
                 case "bye":
-                    ui.showExitMessage();
                     storage.saveTasks(tasks);
-                    return false; // Signals termination
+                    return "Goodbye! Hope to see you again soon!";
                 default:
-                    ui.showError("Sorry, I don't know what that means.");
-                    break;
+                    return "Sorry, I don't know what that means.";
             }
         } catch (NumberFormatException e) {
-            ui.showError("Invalid task number format.");
+            return "Invalid task number format.";
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Task index out of range.");
+            return "Task index out of range.";
         } catch (YeyException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
-        return true; // Continue running
+    }
+
+    /**
+     * Generates a response for the GUI.
+     *
+     * @param input The user command string.
+     * @return The response message.
+     */
+    public String getResponse(String input) {
+        return processCommand(input);
+    }
+
+    public void saveTasks() {
+        storage.saveTasks(tasks);
     }
 }

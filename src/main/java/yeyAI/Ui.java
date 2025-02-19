@@ -85,4 +85,13 @@ public class Ui {
     public void showError(String message) {
         System.out.println("Error: " + message);
     }
+
+    /**
+     * Displays a generic message to the user.
+     *
+     * @param message The message to display.
+     */
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
 }

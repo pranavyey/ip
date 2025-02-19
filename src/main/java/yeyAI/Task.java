@@ -57,31 +57,42 @@ public abstract class Task {
      * @throws YeyException If the format is invalid.
      */
     public static Task fromString(String taskLine) throws YeyException {
-        String[] parts = taskLine.split("/", 2);
+        String[] parts = taskLine.split("/");
         if (parts.length < 2) {
             throw new YeyException("Invalid task format in file.");
         }
 
-        boolean isDone = parts[1].equals("true");
+        int booleanIndex = parts.length - 1;
+        boolean isDone;
+        if (parts[booleanIndex].equals("true")) {
+            isDone = true;
+        } else if (parts[booleanIndex].equals("false")) {
+            isDone = false;
+        } else {
+            throw new YeyException("Invalid task completion status in file.");
+        }
 
         if (taskLine.startsWith("todo")) {
             Task t = new Todo(parts[0].substring(5)); // Remove "todo "
             if (isDone) t.setDone();
             return t;
         } else if (taskLine.startsWith("deadline")) {
-            String[] deadlineParts = parts[0].substring(9).split(" /by ");
-            if (deadlineParts.length < 2) {
+            if (parts.length < 3) {
                 throw new YeyException("Invalid deadline format in file.");
             }
-            Task t = new Deadline(deadlineParts[0] + " /by " + deadlineParts[1]);
+            parts[0] = parts[0].substring(9).trim();
+            parts[1] = parts[1].substring(3).trim();
+            Task t = new Deadline(parts[0] + " /by " + parts[1]);
             if (isDone) t.setDone();
             return t;
         } else if (taskLine.startsWith("event")) {
-            String[] eventParts = parts[0].substring(6).split(" /from | /to ");
-            if (eventParts.length < 3) {
+            if (parts.length < 4) {
                 throw new YeyException("Invalid event format in file.");
             }
-            Task t = new Event(eventParts[0] + " /from " + eventParts[1] + " /to " + eventParts[2]);
+            parts[0] = parts[0].substring(6).trim();
+            parts[1] = parts[1].substring(5).trim();
+            parts[2] = parts[2].substring(3).trim();
+            Task t = new Event(parts[0] + " /from " + parts[1] + " /to " + parts[2]);
             if (isDone) t.setDone();
             return t;
         } else {
