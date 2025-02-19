@@ -83,6 +83,17 @@ public class Ui {
      * @param message The error message to display.
      */
     public void showError(String message) {
+        assert message != null : "Error message cannot be null!";
         System.out.println("Error: " + message);
+    }
+
+    /**
+     * Displays a generic message to the user.
+     *
+     * @param message The message to display.
+     */
+    public void showMessage(String message) {
+        assert message != null : "Message cannot be null!";
+        System.out.println(message);
     }
 }

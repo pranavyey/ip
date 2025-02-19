@@ -11,7 +11,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testDeadlineTaskDescription() {
+    public void testDeadlineTaskDescription() throws YeyException {
         Task task = new Deadline("Complete CS2103 /by 2025-03-02");
         assertEquals("Complete CS2103", task.getDescription(), "Task name should match");
         task.setDone();

@@ -39,6 +39,7 @@ public class TaskList {
      * @param index The index of the task to remove.
      */
     public void removeTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of bounds!";
         tasks.remove(index);
     }
 
@@ -49,6 +50,7 @@ public class TaskList {
      * @return The Task object at the given index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of bounds!";
         return tasks.get(index);
     }
 
@@ -58,6 +60,7 @@ public class TaskList {
      * @return The last Task object in the list.
      */
     public Task getLastTask() {
+        assert !tasks.isEmpty() : "Task list is empty, cannot get last task!";
         return tasks.get(tasks.size() - 1);
     }
 
@@ -71,7 +74,7 @@ public class TaskList {
     }
 
     /**
-     * Creates and returns a new TaskList of tasks that have matching decriptions with the query
+     * Creates and returns a new TaskList of tasks that have matching descriptions with the query
      *
      * @param query Substring that has to match with the description of a task
      * @return a TaskList of all matching Tasks
@@ -84,6 +87,18 @@ public class TaskList {
             }
         }
         return result;
+    }
+
+    public String findTasksString(String query) {
+        return findTasks(query).listTasks();
+    }
+
+    public String listTasks() {
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i =0; i < tasks.size(); i++) {
+            result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return result.toString();
     }
 }
 

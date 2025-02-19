@@ -19,6 +19,7 @@ public class Storage {
      * @param filePath The file path where tasks are stored.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         this.filePath = Path.of(filePath);
     }
 
@@ -29,11 +30,14 @@ public class Storage {
      * @throws IOException If the file cannot be read.
      */
     public ArrayList<Task> load() throws IOException {
+        assert filePath != null : "File path should not be null!";
+
         ArrayList<Task> tasks = new ArrayList<>();
         if (Files.exists(filePath)) {
             List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
             for (String line : lines) {
                 try {
+                    assert line != null && !line.trim().isEmpty() : "Invalid line in tasks file!";
                     tasks.add(Task.fromString(line));
                 } catch (YeyException e) {
                     System.out.println("Skipping invalid task: " + e.getMessage());
@@ -49,6 +53,7 @@ public class Storage {
      * @param tasks The list of tasks to be saved.
      */
     public void saveTasks(TaskList tasks) {
+        assert tasks != null : "Task list cannot be null!";
         List<String> lines = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {
             lines.add(tasks.getTask(i).toCommand());
