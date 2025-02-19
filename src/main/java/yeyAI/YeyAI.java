@@ -42,6 +42,7 @@ public class YeyAI {
      * @return Response message from yeyAI.
      */
     public String getResponse(String input) {
+        assert parser != null : "Parser should not be null!";
         return parser.getResponse(input);
     }
 

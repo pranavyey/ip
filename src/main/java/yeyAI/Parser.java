@@ -40,6 +40,10 @@ public class Parser {
      * @return The response message.
      */
     public String processCommand(String input) {
+        assert tasks != null : "Tasks should not be null!";
+        assert ui != null : "UI should not be null!";
+        assert storage != null : "Storage should not be null!";
+
         String[] words = input.split(" ", 2);
         String commandWord = words[0];
         String arguments = words.length > 1 ? words[1] : "";
@@ -50,10 +54,12 @@ public class Parser {
                     return tasks.listTasks();
                 case "mark":
                     int markIndex = Integer.parseInt(arguments) - 1;
+                    assert markIndex >= 0 && markIndex < tasks.getSize() : "Mark index out of bounds!";
                     tasks.getTask(markIndex).setDone();
                     return "Marked task as done:\n" + tasks.getTask(markIndex);
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(arguments) - 1;
+                    assert unmarkIndex >= 0 && unmarkIndex < tasks.getSize() : "Unmark index out of bounds!";
                     tasks.getTask(unmarkIndex).setUndone();
                     return "Unmarked task:\n" + tasks.getTask(unmarkIndex);
                 case "todo":
@@ -70,6 +76,7 @@ public class Parser {
                     return "Added new event:\n" + tasks.getLastTask();
                 case "delete":
                     int deleteIndex = Integer.parseInt(arguments) - 1;
+                    assert deleteIndex >= 0 && deleteIndex < tasks.getSize() : "Delete index out of bounds!";
                     Task deletedTask = tasks.getTask(deleteIndex);
                     tasks.removeTask(deleteIndex);
                     return "Deleted task:\n" + deletedTask;

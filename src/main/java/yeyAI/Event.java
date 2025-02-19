@@ -2,6 +2,7 @@ package yeyAI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an event task with a start and end date.
@@ -15,10 +16,25 @@ public class Event extends Task {
      *
      * @param description The task description containing "/from" and "/to" for dates.
      */
-    public Event(String description) {
+    public Event(String description) throws YeyException {
         super(description.split(" /from ")[0]);
-        this.start = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[0]);
-        this.end = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[1]);
+
+        String[] parts = description.split(" /from ");
+        if (parts.length != 2 || !parts[1].contains(" /to ")) {
+            throw new YeyException("Invalid event format! Use: event DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD");
+        }
+
+        String[] dateParts = parts[1].split(" /to ");
+        try {
+            this.start = LocalDate.parse(dateParts[0].trim());
+            this.end = LocalDate.parse(dateParts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
+        }
+
+        if (this.end.isBefore(this.start)) {
+            throw new YeyException("Invalid event dates! End date cannot be before start date.");
+        }
     }
 
     /**

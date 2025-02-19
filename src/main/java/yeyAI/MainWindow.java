@@ -35,6 +35,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setyeyAI(YeyAI y) {
+        assert y != null : "YeyAI instance cannot be null!";
         yeyAI = y;
     }
 
@@ -44,7 +45,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput.getText() != null : "User input cannot be null!";
+
         String input = userInput.getText();
+        assert !input.isEmpty() : "User input should not be empty!";
+
         String response = yeyAI.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
