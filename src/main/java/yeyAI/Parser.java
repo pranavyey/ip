@@ -66,6 +66,8 @@ public class Parser {
                     return deleteTask(arguments);
                 case "find":
                     return findTask(arguments);
+                case "edit":
+                    return editTask(arguments);
                 case "bye":
                     return bye();
                 default:
@@ -118,6 +120,43 @@ public class Parser {
         String query = arguments.trim();
         return tasks.findTasksString(query);
     }
+    private String editTask(String arguments) throws YeyException {
+        if (tasks.getSize() == 0) throw new YeyException("There are no tasks in the List.");
+        String[] parts = arguments.split(" ", 3);
+        int taskIndex = Integer.parseInt(parts[0]) - 1;
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) throw new YeyException("Task index out of range.");
+        String editType = parts[1];
+        Task t = tasks.getTask(taskIndex);
+        switch (editType) {
+            case "description":
+                t.setDescription(parts[2]);
+                return "Edited task:\n" + t;
+            case "by":
+            case "deadline":
+                if (!(t instanceof Deadline)) {
+                    throw new YeyException("Task you are trying to edit is not a deadline!");
+                }
+                ((Deadline) t).setDeadline(parts[2]);
+                return "Edited task:\n" + t;
+            case "start":
+            case "from":
+                if (!(t instanceof Event)) {
+                    throw new YeyException("Task you are trying to edit is not a event!");
+                }
+                ((Event) t).setStart(parts[2]);
+                return "Edited task:\n" + t;
+            case "end":
+            case "to":
+                if (!(t instanceof Event)) {
+                    throw new YeyException("Task you are trying to edit is not a event!");
+                }
+                ((Event) t).setEnd(parts[2]);
+                return "Edited task:\n" + t;
+            default:
+                return "Sorry, I don't know what that means.";
+        }
+    }
+
     private String bye() {
         storage.saveTasks(tasks);
         return "Goodbye! Hope to see you again soon!";

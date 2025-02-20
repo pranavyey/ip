@@ -5,7 +5,7 @@ package yeyAI;
  * This is an abstract class to be extended by specific task types (e.g., Todo, Deadline, Event).
  */
 public abstract class Task {
-    protected final String description;
+    protected String description;
     protected boolean isDone;
 
     /**
@@ -38,6 +38,12 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * Sets the description of the task.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
     /**
      * Marks the task as done.
      */

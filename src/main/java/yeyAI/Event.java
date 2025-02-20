@@ -8,8 +8,8 @@ import java.time.format.DateTimeParseException;
  * Represents an event task with a start and end date.
  */
 public class Event extends Task {
-    protected final LocalDate start;
-    protected final LocalDate end;
+    protected LocalDate start;
+    protected LocalDate end;
 
     /**
      * Constructs an Event task with a description, start date, and end date.
@@ -34,6 +34,32 @@ public class Event extends Task {
 
         if (this.end.isBefore(this.start)) {
             throw new YeyException("Invalid event dates! End date cannot be before start date.");
+        }
+    }
+
+    /**
+     * Changes the start date of the event.
+     *
+     * @param date The new start date of the event.
+     */
+    public void setStart(String date) throws YeyException {
+        try {
+            this.start = LocalDate.parse(date.trim());
+        } catch (DateTimeParseException e) {
+            throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
+        }
+    }
+
+    /**
+     * Changes the end date of the event.
+     *
+     * @param date The new
+     */
+    public void setEnd(String date) throws YeyException {
+        try {
+            this.end = LocalDate.parse(date.trim());
+        } catch (DateTimeParseException e) {
+            throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
         }
     }
 

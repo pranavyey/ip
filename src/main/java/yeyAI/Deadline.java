@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a deadline task with a specific due date.
  */
 public class Deadline extends Task {
-    protected final LocalDate deadline;
+    protected LocalDate deadline;
 
     /**
      * Constructs a Deadline task with a description and a due date.
@@ -25,6 +25,19 @@ public class Deadline extends Task {
 
         try {
             this.deadline = LocalDate.parse(parts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
+        }
+    }
+
+    /**
+     * Changes the due date of a given Deadline task
+     *
+     * @param date The new due date of the Deadline task
+     */
+    public void setDeadline(String date) throws YeyException {
+        try {
+            this.deadline = LocalDate.parse(date.trim());
         } catch (DateTimeParseException e) {
             throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
         }
