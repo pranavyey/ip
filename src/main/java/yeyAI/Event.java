@@ -44,7 +44,12 @@ public class Event extends Task {
      */
     public void setStart(String date) throws YeyException {
         try {
-            this.start = LocalDate.parse(date.trim());
+            LocalDate from = LocalDate.parse(date.trim());
+            if (this.end.isBefore(from)) {
+                throw new YeyException("Invalid event dates! Start date cannot be after end date.");
+            } else {
+                this.start = from;
+            }
         } catch (DateTimeParseException e) {
             throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
         }
@@ -57,6 +62,10 @@ public class Event extends Task {
      */
     public void setEnd(String date) throws YeyException {
         try {
+            LocalDate to = LocalDate.parse(date.trim());
+            if (this.start.isBefore(to)) {
+                throw new YeyException("Invalid event dates! End date cannot be before start date.");
+            }
             this.end = LocalDate.parse(date.trim());
         } catch (DateTimeParseException e) {
             throw new YeyException("Invalid date format! Use YYYY-MM-DD.");
