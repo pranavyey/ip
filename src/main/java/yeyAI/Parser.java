@@ -118,7 +118,7 @@ public class Parser {
     }
     private String findTask(String arguments) {
         String query = arguments.trim();
-        return tasks.findTasksString(query);
+        return tasks.findTasks(query);
     }
     private String editTask(String arguments) throws YeyException {
         if (tasks.getSize() == 0) throw new YeyException("There are no tasks in the List.");

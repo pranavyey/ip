@@ -29,14 +29,15 @@ public class MainWindow extends AnchorPane {
     private Image aiImage = new Image(this.getClass().getResourceAsStream("/images/yeyAI.jpg"));
 
     @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
+    public void initialize() { scrollPane.vvalueProperty().bind(dialogContainer.heightProperty()); }
 
     /** Injects the Duke instance */
     public void setyeyAI(YeyAI y) {
         assert y != null : "YeyAI instance cannot be null!";
         yeyAI = y;
+
+        String response = yeyAI.getResponse("hello");
+        dialogContainer.getChildren().add(DialogBox.getAIDialog(response, aiImage));
     }
 
     /**

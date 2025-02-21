@@ -63,7 +63,7 @@ public class Event extends Task {
     public void setEnd(String date) throws YeyException {
         try {
             LocalDate to = LocalDate.parse(date.trim());
-            if (this.start.isBefore(to)) {
+            if (this.start.isAfter(to)) {
                 throw new YeyException("Invalid event dates! End date cannot be before start date.");
             }
             this.end = LocalDate.parse(date.trim());

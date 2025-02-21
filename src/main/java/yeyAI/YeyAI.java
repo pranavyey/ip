@@ -43,6 +43,9 @@ public class YeyAI {
      */
     public String getResponse(String input) {
         assert parser != null : "Parser should not be null!";
+        if (input.equalsIgnoreCase("hello")) {
+            return "Hello! I'm yeyAI\nWhat can I do for you?";
+        }
         return parser.getResponse(input);
     }
 

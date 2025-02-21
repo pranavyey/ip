@@ -79,18 +79,17 @@ public class TaskList {
      * @param query Substring that has to match with the description of a task
      * @return a TaskList of all matching Tasks
      */
-    public TaskList findTasks(String query) {
-        TaskList result = new TaskList();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(query)) {
-                result.addTask(task);
+    public String findTasks(String query) {
+        if (tasks.isEmpty()) {
+            return "There are no tasks in your list";
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(query)) {
+                result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             }
         }
-        return result;
-    }
-
-    public String findTasksString(String query) {
-        return findTasks(query).listTasks();
+        return result.toString();
     }
 
     public String listTasks() {
